@@ -5,6 +5,7 @@ export interface MailPort {
   setSubject(subject: string): this
   setText(text: string): this
   setHtml(html: string): this
-  setAttachments: (attachments: File[]) => this
-  send(): boolean
+  setAttachments: (attachments: []) => this
+  send(): Promise<boolean>
+  auth(user: string, password: string): this
 }

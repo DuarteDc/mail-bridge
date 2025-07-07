@@ -1,5 +1,5 @@
 import { apiRouter } from './mail/infraestructure/routes/apiRouter'
-import { Server } from './shared/mail/server'
+import { Server } from './mail/presentation/server'
 
 const server = Server.getInstance()
 ;(async () => {

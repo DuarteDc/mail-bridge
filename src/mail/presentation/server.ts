@@ -26,6 +26,7 @@ export class Server {
     this.loadMiddlewares()
     Server.server.use(this.healt())
     Server.server.use(apiRouter)
+    this.notFound()
     Server.server.listen(envs.PORT, () => {
       console.log(`🚀 Server is running on port ${envs.PORT}`)
     })
@@ -35,7 +36,6 @@ export class Server {
     Server.server.use(cors())
     Server.server.use(helmet())
     Server.server.use(this.limitRequestPerUser())
-    this.notFound()
     Server.server.use(Express.json())
     Server.server.use(Express.urlencoded({ extended: true }))
     Server.server.use(bodyParser.urlencoded({ extended: false }))

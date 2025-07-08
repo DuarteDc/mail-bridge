@@ -57,8 +57,7 @@ export class EmailService implements MailPort {
     if (!this.transporter) throw new Error('Unauthenticated')
 
     try {
-      await this.transporter.verify()
-      return true
+      return await this.transporter.verify()
     } catch {
       return false
     }

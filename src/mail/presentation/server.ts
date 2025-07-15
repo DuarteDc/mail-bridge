@@ -1,10 +1,10 @@
 import Express, { Router, Response, Request } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
+import bodyParser from 'body-parser'
 import rateLimit from 'express-rate-limit'
 
 import { envs } from '@env/env.plugin'
-import bodyParser from 'body-parser'
 
 export class Server {
   private static server: Express.Express
@@ -41,7 +41,7 @@ export class Server {
     Server.server.use(bodyParser.urlencoded({ extended: false }))
   }
 
-  private limitRequestPerUser (minutes = 10, limit = 10) {
+  private limitRequestPerUser (minutes = 10, limit = 100) {
     return rateLimit({
       windowMs: minutes * 60 * 100,
       limit,

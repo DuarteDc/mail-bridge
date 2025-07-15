@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: app
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: docker/production/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000

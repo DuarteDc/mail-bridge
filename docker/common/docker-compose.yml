@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: docker/common/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ../../:/app
+    environment:
+      - NODE_ENV=development

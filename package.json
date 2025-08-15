@@ -11,9 +11,6 @@
     "test:watch": "npm run docker:test && jest --watch",
     "test:coverage": "npm run docker:test && jest --coverage"
   },
-  "_moduleAliases": {
-    "@": "dist"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",

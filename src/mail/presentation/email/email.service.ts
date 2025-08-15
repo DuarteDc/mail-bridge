@@ -1,11 +1,9 @@
 import autoBind from 'auto-bind'
 import Transport from 'nodemailer'
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
-import { envs } from '@env/env.plugin'
-
-import { MailPort } from '@app/core/ports/mail/mail.port'
-import { AttachmentsDto } from '@app/application/dtos/send-mail'
-
+import { MailPort } from '../../core/ports/mail/mail.port'
+import { AttachmentsDto } from '../../application/dtos/send-mail'
+import { envs } from '../../../conf/env.plugin'
 export class EmailService implements MailPort {
   constructor () {
     autoBind(this)
@@ -49,6 +47,7 @@ export class EmailService implements MailPort {
       })
       return true
     } catch (error) {
+      console.log(error)
       return false
     }
   }

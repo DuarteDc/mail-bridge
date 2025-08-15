@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import multer from 'multer'
 
-import { SendMailUseCase } from '@app/application/use-cases/send-mail.use-case'
-import { MailController } from '@app/infraestructure/controllers/v1/mail/mail.controller'
-import { BaseRequest } from '@app/infraestructure/requests/base.request'
-import { MailSchema } from '@app/infraestructure/requests/schemas/mail/mail.schema'
-import { EmailService } from '@app/presentation/email/email.service'
+import { SendMailUseCase } from '../../../../application/use-cases/send-mail.use-case'
+import { BaseRequest } from '../../../requests/base.request'
+import { MailController } from '../../../controllers/v1/mail/mail.controller'
+import { EmailService } from '../../../../presentation/email/email.service'
+import { MailSchema } from '../../../requests/schemas/mail/mail.schema'
 
 const mailRouter = Router()
 const uploadManager = multer({ storage: multer.memoryStorage() })

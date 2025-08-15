@@ -3,8 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import bodyParser from 'body-parser'
 import rateLimit from 'express-rate-limit'
-
-import { envs } from '@env/env.plugin'
+import { envs } from '../../conf/env.plugin'
 
 export class Server {
   private static server: Express.Express

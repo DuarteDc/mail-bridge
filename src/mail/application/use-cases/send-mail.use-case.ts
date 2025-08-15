@@ -1,4 +1,4 @@
-import { EmailService } from '@app/presentation/email/email.service'
+import { EmailService } from '../../presentation/email/email.service'
 import { SendMailDto } from '../dtos/send-mail'
 import autoBind from 'auto-bind'
 

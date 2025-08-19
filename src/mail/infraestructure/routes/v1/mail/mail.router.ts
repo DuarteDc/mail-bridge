@@ -6,8 +6,10 @@ import { BaseRequest } from '../../../requests/base.request'
 import { MailController } from '../../../controllers/v1/mail/mail.controller'
 import { EmailService } from '../../../../presentation/email/email.service'
 import { MailSchema } from '../../../requests/schemas/mail/mail.schema'
+import { ParseFilesMiddleware } from 'mail/infraestructure/middleware/parse-files.middleware'
 
 const mailRouter = Router()
+const parseFilesMiddleware = new ParseFilesMiddleware()
 const uploadManager = multer({ storage: multer.memoryStorage() })
 
 const baseRequest = new BaseRequest()
@@ -18,6 +20,7 @@ const mailController = new MailController(
 mailRouter.post(
   '/send',
   uploadManager.array('attachments'),
+  parseFilesMiddleware.parse,
   baseRequest.validate(MailSchema.rules()).bind(baseRequest),
   mailController.send
 )

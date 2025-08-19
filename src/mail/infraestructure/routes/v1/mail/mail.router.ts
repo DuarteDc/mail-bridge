@@ -6,7 +6,7 @@ import { BaseRequest } from '../../../requests/base.request'
 import { MailController } from '../../../controllers/v1/mail/mail.controller'
 import { EmailService } from '../../../../presentation/email/email.service'
 import { MailSchema } from '../../../requests/schemas/mail/mail.schema'
-import { ParseFilesMiddleware } from 'mail/infraestructure/middleware/parse-files.middleware'
+import { ParseFilesMiddleware } from '../../../middleware/parse-files.middleware'
 
 const mailRouter = Router()
 const parseFilesMiddleware = new ParseFilesMiddleware()

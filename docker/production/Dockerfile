@@ -11,7 +11,7 @@ RUN npm run test
 
 FROM base as builder
 WORKDIR /app
-RUN npm install
+RUN npm install 
 RUN npm run build
 
 FROM node:alpine3.20 as prod
@@ -24,4 +24,4 @@ COPY --from=builder /app/dist/ /app/
 
 EXPOSE 3000
 
-CMD [ "node", "src/app.js" ]
+CMD [ "node", "app.js" ]

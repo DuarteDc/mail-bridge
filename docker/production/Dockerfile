@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY --from=base /app/.env /app/.env
 COPY --from=base /app/package.json /app/package.json
-COPY --from=builder /app/node_modules /app/node_modules
+# COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/dist/ /app/
 
 EXPOSE 3000

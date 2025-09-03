@@ -9,3 +9,18 @@ services:
     restart: always
     ports:
       - 3000:3000
+    depends_on:
+      - postfix-mta
+
+  postfix-mta:
+    image: juanluisbaptiste/postfix:alpine
+    container_name: postfix-mta
+    restart: always
+    ports:
+      - 25:25
+    environment:
+      - SMTP_SERVER=smtp.development.sspc.gob.mx
+      - SERVER_HOSTNAME=development.sspc.gob.mx
+    volumes:
+      - ./docker/production/main.cf:/etc/postfix/main.cf:ro
+      - ./etc/postfix/logs:/var/log

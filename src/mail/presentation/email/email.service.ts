@@ -1,41 +1,41 @@
-import autoBind from 'auto-bind'
-import Transport from 'nodemailer'
-import SMTPTransport from 'nodemailer/lib/smtp-transport'
-import { MailPort } from '../../core/ports/mail/mail.port'
-import { AttachmentsDto } from '../../application/dtos/send-mail'
-import { envs } from '../../../conf/env.plugin'
+import autoBind from "auto-bind";
+import Transport from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { MailPort } from "../../core/ports/mail/mail.port";
+import { AttachmentsDto } from "../../application/dtos/send-mail";
+import { envs } from "../../../conf/env.plugin";
 export class EmailService implements MailPort {
-  constructor () {
-    autoBind(this)
+  constructor() {
+    autoBind(this);
   }
   private transporter:
     | Transport.Transporter<
         SMTPTransport.SentMessageInfo,
         SMTPTransport.Options
       >
-    | undefined
+    | undefined;
 
-  private from: string = ''
-  private to: string = ''
-  private subject: string = ''
-  private text: string = ''
-  private html: string = ''
-  private attachments: AttachmentsDto[] = []
+  private from: string = "";
+  private to: string = "";
+  private subject: string = "";
+  private text: string = "";
+  private html: string = "";
+  private attachments: AttachmentsDto[] = [];
 
-  auth (user: string, password: string): this {
+  auth(): this {
     this.transporter = Transport.createTransport({
       host: envs.MAILER_SERVICE,
       secure: false,
-      auth: {
-        user: user,
-        pass: password
-      }
-    })
-    return this
+      port: envs.MAILER_PORT,
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+    return this;
   }
 
-  async send (): Promise<boolean> {
-    if (!this.transporter) throw new Error('Unauthenticated')
+  async send(): Promise<boolean> {
+    if (!this.transporter) throw new Error("Unauthenticated");
     try {
       await this.transporter.sendMail({
         from: this.from,
@@ -43,55 +43,55 @@ export class EmailService implements MailPort {
         subject: this.subject,
         html: this.html,
         text: this.text,
-        attachments: this.attachments.length > 0 ? this.attachments : undefined
-      })
-      return true
+        attachments: this.attachments.length > 0 ? this.attachments : undefined,
+      });
+      return true;
     } catch (error) {
-      console.log(error)
-      return false
+      console.log(error);
+      return false;
     }
   }
 
-  async verify (): Promise<boolean> {
-    if (!this.transporter) throw new Error('Unauthenticated')
+  async verify(): Promise<boolean> {
+    if (!this.transporter) throw new Error("Unauthenticated");
 
     try {
-      return await this.transporter.verify()
+      return await this.transporter.verify();
     } catch {
-      return false
+      return false;
     }
   }
 
-  setFrom (from: string): this {
-    this.from = from
-    return this
+  setFrom(from: string): this {
+    this.from = from;
+    return this;
   }
-  setTo (to: string): this {
-    this.to = to
-    return this
-  }
-
-  setSubject (subject: string): this {
-    this.subject = subject
-    return this
+  setTo(to: string): this {
+    this.to = to;
+    return this;
   }
 
-  setText (text: string): this {
-    this.text = text
-    return this
+  setSubject(subject: string): this {
+    this.subject = subject;
+    return this;
   }
 
-  setHtml (html: string): this {
-    this.html = html
-    return this
+  setText(text: string): this {
+    this.text = text;
+    return this;
   }
 
-  setAttachments (files: AttachmentsDto | AttachmentsDto[]): this {
+  setHtml(html: string): this {
+    this.html = html;
+    return this;
+  }
+
+  setAttachments(files: AttachmentsDto | AttachmentsDto[]): this {
     if (Array.isArray(files)) {
-      this.attachments = files
+      this.attachments = files;
     } else {
-      this.attachments = [files]
+      this.attachments = [files];
     }
-    return this
+    return this;
   }
 }
